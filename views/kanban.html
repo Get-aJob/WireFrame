@@ -540,6 +540,17 @@
         justify-content: center;
         margin-top: 9px;
       }
+      .btn-danger-outline {
+        background: #fff;
+        color: var(--rose);
+        border: 1.5px solid #fecdd3;
+      }
+      .slactions .btn-delete {
+        flex: 0.35 !important;
+      }
+      .slactions .btn-save {
+        flex: 0.65 !important;
+      }
     </style>
   </head>
   <body>
@@ -802,10 +813,9 @@
           </div>
         </div>
         <div class="slactions">
-          <button class="btn btn-outline" style="flex: 1">단계 변경</button>
-          <button class="btn btn-primary" style="flex: 1">수정하기</button>
+          <button class="btn btn-danger-outline btn-delete" style="flex: 1">삭제하기</button>
+          <button class="btn btn-primary btn-save" style="flex: 1">저장하기</button>
         </div>
-        <button class="btn btn-danger">삭제하기</button>
       </div>
     </div>
 

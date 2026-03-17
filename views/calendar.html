@@ -155,6 +155,22 @@
         color: var(--rose);
         border: 1.5px solid #fecdd3;
       }
+      .btn-danger-outline {
+        background: #fff;
+        color: var(--rose);
+        border: 1.5px solid #fecdd3;
+      }
+      .action-row {
+        display: flex;
+        gap: 9px;
+        margin-top: 15px;
+      }
+      .action-row .btn-delete {
+        flex: 0.35;
+      }
+      .action-row .btn-save {
+        flex: 0.65;
+      }
 
       .chead {
         display: flex;
@@ -418,7 +434,7 @@
       .memo {
         background: var(--surface2);
         border: 1.5px solid var(--border);
-        border-radius: 99px;
+        border-radius: 12px;
         padding: 13px;
         font-size: 13px;
         color: var(--text2);
@@ -694,9 +710,9 @@
             프로젝트 2개 첨부
           </div>
         </div>
-        <div style="display: flex; gap: 9px; margin-top: 15px">
-          <button class="btn btn-outline" style="flex: 1">수정하기</button>
-          <button class="btn btn-primary" style="flex: 1">완료 처리</button>
+        <div class="action-row">
+          <button class="btn btn-danger-outline btn-delete">삭제하기</button>
+          <button class="btn btn-primary btn-save">저장하기</button>
         </div>
       </div>
     </div>
