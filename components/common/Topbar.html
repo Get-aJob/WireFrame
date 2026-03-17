@@ -131,6 +131,34 @@
     margin-bottom: 16px;
     align-items: center;
   }
+
+  /* 상세페이지 메모 UI (재사용) */
+  .sec-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  .memo {
+    width: 100%;
+    background: #f8f9fc;
+    border: 1.5px solid #e8eaf0;
+    border-radius: 9px;
+    padding: 13px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.7;
+    box-sizing: border-box;
+  }
+  textarea.memo {
+    resize: vertical;
+    min-height: 92px;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  textarea.memo:focus {
+    border-color: #4f46e5;
+  }
 </style>
 
 <div class="topbar">
@@ -181,6 +209,10 @@
     <div class="fg">
       <label class="fl">태그</label
       ><input class="fi" placeholder="예: React, 신입" />
+    </div>
+    <div class="fg">
+      <div class="sec-t">메모</div>
+      <textarea class="memo" placeholder="공고 관련 메모를 입력하세요."></textarea>
     </div>
     <div class="m-foot">
       <button class="btn btn-outline" onclick="closeJobModal()">취소</button>
