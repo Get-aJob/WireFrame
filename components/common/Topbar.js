@@ -52,10 +52,15 @@ async function loadTopbar(config) {
 
 function openJobModal() {
   // 필드 초기화
-  const alwaysRecruitCheckbox = document.getElementById(
-    'alwaysRecruitCheckbox',
-  );
+  const alwaysRecruitCheckbox = document.getElementById('alwaysRecruitCheckbox');
   const jobDeadlineInput = document.getElementById('jobDeadlineInput');
+  const jobCompanyInput = document.getElementById('jobCompanyInput');
+  const jobTitleInput = document.getElementById('jobTitleInput');
+  const jobUrlInput = document.getElementById('jobUrlInput');
+  const jobExperienceInput = document.getElementById('jobExperienceInput');
+  const jobLocationInput = document.getElementById('jobLocationInput');
+  const jobMemoInput = document.getElementById('jobMemoInput');
+
   if (alwaysRecruitCheckbox) alwaysRecruitCheckbox.checked = false;
   if (jobDeadlineInput) {
     jobDeadlineInput.disabled = false;
@@ -63,6 +68,13 @@ function openJobModal() {
     jobDeadlineInput.style.cursor = 'default';
     jobDeadlineInput.value = '';
   }
+  if (jobCompanyInput) jobCompanyInput.value = '';
+  if (jobTitleInput) jobTitleInput.value = '';
+  if (jobUrlInput) jobUrlInput.value = '';
+  if (jobExperienceInput) jobExperienceInput.value = '';
+  if (jobLocationInput) jobLocationInput.value = '';
+  if (jobMemoInput) jobMemoInput.value = '';
+
   document.getElementById('addJobModal').classList.add('show');
 }
 function closeJobModal(e) {

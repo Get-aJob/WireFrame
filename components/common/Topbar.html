@@ -73,9 +73,9 @@
         background: #fff;
         border-radius: 16px;
         padding: 30px;
-        width: 640px;
+        width: 750px;
         max-width: calc(100vw - 32px);
-        max-height: 86vh;
+        max-height: 90vh;
         overflow-y: auto;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
@@ -106,6 +106,12 @@
     }
     .fi:focus {
         border-color: #4f46e5;
+    }
+    .fi-memo {
+        height: 120px;
+        resize: vertical;
+        min-height: 80px;
+        overflow-y: auto;
     }
     .frow2 {
         display: grid;
@@ -173,10 +179,43 @@
                 파싱
             </button>
         </div>
+        <div class="fg">
+            <label class="fl">공고 제목</label>
+            <input
+                class="fi"
+                id="jobTitleInput"
+                placeholder="예: 프론트엔드 개발자"
+            />
+        </div>
+
         <div class="frow2">
             <div class="fg">
                 <label class="fl">회사명</label>
-                <input class="fi" placeholder="예: 네이버" />
+                <input
+                    class="fi"
+                    id="jobCompanyInput"
+                    placeholder="예: 네이버"
+                />
+            </div>
+            <div class="fg">
+                <label class="fl">회사위치</label>
+                <input
+                    class="fi"
+                    id="jobLocationInput"
+                    placeholder="예: 서울 강남구 / 판교 / 재택"
+                />
+            </div>
+        </div>
+
+        <div class="frow2">
+            <div class="fg">
+                <label class="fl">신입/경력</label>
+                <input
+                    class="fi"
+                    id="jobExperienceInput"
+                    placeholder="예: 신입 / 경력(2년 이상)"
+                    title="신입/경력 유무"
+                />
             </div>
             <div class="fg">
                 <div
@@ -221,30 +260,19 @@
         </div>
 
         <div class="fg">
-            <label class="fl">공고 제목</label>
-            <input class="fi" placeholder="예: 프론트엔드 개발자" />
+            <label class="fl">공고 URL</label>
+            <input class="fi" id="jobUrlInput" placeholder="https://..." />
         </div>
-
-        <!--
-        <div class="frow2">
-            <div class="fg">
-                <label class="fl">경력</label>
-                <input
-                    class="fi"
-                    placeholder="예: 신입 / 경력무관 "
-                    title="경력"
-                />
-            </div>
-            <div class="fg">
-                <label class="fl">지역</label>
-                <input class="fi" placeholder="예: 서울 / 판교 / 재택" />
-            </div>
-        </div>
-        -->
 
         <div class="fg">
-            <label class="fl">공고 URL</label>
-            <input class="fi" placeholder="https://..." />
+            <label class="fl"
+                >상세 메모 (주요업무/ 자격요건 / 우대사항 등)</label
+            >
+            <textarea
+                class="fi fi-memo"
+                id="jobMemoInput"
+                placeholder="채용 상세 요건이나 우대사항 등을 자유롭게 기재해 주세요."
+            ></textarea>
         </div>
         <div class="m-foot">
             <button class="btn btn-outline" onclick="closeJobModal()">
