@@ -24,6 +24,26 @@ async function loadTopbar(config) {
         btn.onclick = () => openJobModal();
         actions.appendChild(btn);
       }
+
+      // 상시 모집 체크박스 로직
+      const alwaysRecruitCheckbox = document.getElementById(
+        'alwaysRecruitCheckbox',
+      );
+      const jobDeadlineInput = document.getElementById('jobDeadlineInput');
+      if (alwaysRecruitCheckbox && jobDeadlineInput) {
+        alwaysRecruitCheckbox.onchange = function () {
+          if (this.checked) {
+            jobDeadlineInput.disabled = true;
+            jobDeadlineInput.style.opacity = '0.5';
+            jobDeadlineInput.style.cursor = 'not-allowed';
+            jobDeadlineInput.value = '';
+          } else {
+            jobDeadlineInput.disabled = false;
+            jobDeadlineInput.style.opacity = '1';
+            jobDeadlineInput.style.cursor = 'default';
+          }
+        };
+      }
     }
   } catch (e) {
     console.error('Topbar 로드 실패', e);
@@ -31,6 +51,18 @@ async function loadTopbar(config) {
 }
 
 function openJobModal() {
+  // 필드 초기화
+  const alwaysRecruitCheckbox = document.getElementById(
+    'alwaysRecruitCheckbox',
+  );
+  const jobDeadlineInput = document.getElementById('jobDeadlineInput');
+  if (alwaysRecruitCheckbox) alwaysRecruitCheckbox.checked = false;
+  if (jobDeadlineInput) {
+    jobDeadlineInput.disabled = false;
+    jobDeadlineInput.style.opacity = '1';
+    jobDeadlineInput.style.cursor = 'default';
+    jobDeadlineInput.value = '';
+  }
   document.getElementById('addJobModal').classList.add('show');
 }
 function closeJobModal(e) {

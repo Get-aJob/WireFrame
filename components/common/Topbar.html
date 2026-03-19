@@ -179,16 +179,53 @@
                 <input class="fi" placeholder="예: 네이버" />
             </div>
             <div class="fg">
-                <label class="fl">공고 제목</label>
-                <input class="fi" placeholder="예: 프론트엔드 개발자 (신입)" />
+                <div
+                    style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 6px;
+                    "
+                >
+                    <label class="fl" style="margin-bottom: 0">마감일</label>
+                    <label
+                        style="
+                            font-size: 11.5px;
+                            color: #6b7280;
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            cursor: pointer;
+                            font-weight: 600;
+                        "
+                    >
+                        <input
+                            type="checkbox"
+                            id="alwaysRecruitCheckbox"
+                            style="
+                                width: 13px;
+                                height: 13px;
+                                accent-color: #4f46e5;
+                            "
+                        />
+                        상시 모집
+                    </label>
+                </div>
+                <input
+                    class="fi"
+                    type="date"
+                    id="jobDeadlineInput"
+                    title="마감일"
+                />
             </div>
         </div>
 
         <div class="fg">
-            <label class="fl">공고 URL</label>
-            <input class="fi" placeholder="https://..." />
+            <label class="fl">공고 제목</label>
+            <input class="fi" placeholder="예: 프론트엔드 개발자" />
         </div>
 
+        <!--
         <div class="frow2">
             <div class="fg">
                 <label class="fl">경력</label>
@@ -203,13 +240,11 @@
                 <input class="fi" placeholder="예: 서울 / 판교 / 재택" />
             </div>
         </div>
+        -->
 
-        <div class="frow2">
-            <div class="fg">
-                <label class="fl">마감일</label>
-                <input class="fi" type="date" title="마감일" />
-            </div>
-            <div class="fg"></div>
+        <div class="fg">
+            <label class="fl">공고 URL</label>
+            <input class="fi" placeholder="https://..." />
         </div>
         <div class="m-foot">
             <button class="btn btn-outline" onclick="closeJobModal()">
