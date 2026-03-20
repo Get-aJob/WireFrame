@@ -44,10 +44,82 @@ async function loadTopbar(config) {
           }
         };
       }
+
+      // 로고 업로드 로직 추가
+      initLogoUpload();
     }
   } catch (e) {
     console.error('Topbar 로드 실패', e);
   }
+}
+
+function initLogoUpload() {
+  const dropZone = document.getElementById('logoDropZone');
+  const fileInput = document.getElementById('logoFileInput');
+  const preview = document.getElementById('logoPreview');
+  const removeBtn = document.getElementById('logoRemoveBtn');
+
+  if (!dropZone || !fileInput || !preview || !removeBtn) return;
+
+  // 클릭 시 파일 선택창 열기
+  dropZone.onclick = (e) => {
+    if (e.target === removeBtn) return;
+    fileInput.click();
+  };
+
+  // 파일 선택 시 처리
+  fileInput.onchange = (e) => {
+    const file = e.target.files[0];
+    handleLogoFile(file);
+  };
+
+  // 드래그 앤 드롭 이벤트
+  dropZone.ondragover = (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  };
+
+  dropZone.ondragleave = () => {
+    dropZone.classList.remove('dragover');
+  };
+
+  dropZone.ondrop = (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    handleLogoFile(file);
+  };
+
+  // 로고 삭제 버튼
+  removeBtn.onclick = (e) => {
+    e.stopPropagation();
+    resetLogo();
+  };
+}
+
+function handleLogoFile(file) {
+  if (!file || !file.type.startsWith('image/')) {
+    alert('이미지 파일만 업로드 가능합니다.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const preview = document.getElementById('logoPreview');
+    preview.src = e.target.result;
+    preview.classList.add('show');
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetLogo() {
+  const preview = document.getElementById('logoPreview');
+  const fileInput = document.getElementById('logoFileInput');
+  if (preview) {
+    preview.src = '';
+    preview.classList.remove('show');
+  }
+  if (fileInput) fileInput.value = '';
 }
 
 function openJobModal() {
@@ -80,6 +152,9 @@ function resetJobForm() {
   if (jobLocationInput) jobLocationInput.value = '';
   if (jobMemoInput) jobMemoInput.value = '';
   if (crawlUrlInput) crawlUrlInput.value = '';
+
+  // 로고 초기화
+  resetLogo();
 }
 function closeJobModal(e) {
   if (!e || e.target.id === 'addJobModal') {

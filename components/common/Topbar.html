@@ -126,6 +126,55 @@
         padding-top: 18px;
         border-top: 1.5px solid #e8eaf0;
     }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+    .btn-reset {
+        font-size: 11.5px !important;
+        padding: 5px 11px !important;
+        color: #9ca3af !important;
+        border-color: #e8eaf0 !important;
+    }
+    .crawl-input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 12.5px;
+    }
+    .btn-parse {
+        padding: 6px 13px !important;
+        font-size: 12px !important;
+    }
+    .deadline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+    .always-label {
+        font-size: 11.5px;
+        color: #6b7280;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .accent-checkbox {
+        width: 13px;
+        height: 13px;
+        accent-color: #4f46e5;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .m-0 {
+        margin: 0 !important;
+    }
 
     /* 크롤링 바 */
     .crawl-bar {
@@ -139,18 +188,99 @@
         align-items: center;
     }
 
+    /* 공고 등록 폼 레이아웃 수정 및 로고 업로드 스타일 */
+    .form-layout-grid {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 24px;
+        margin-bottom: 20px;
+    }
+    .logo-upload-container {
+        width: 160px;
+        height: 160px;
+        background: #f8f9fc;
+        border: 2px dashed #e8eaf0;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+    .logo-upload-container:hover,
+    .logo-upload-container.dragover {
+        border-color: #4f46e5;
+        background: #f5f3ff;
+    }
+    .logo-upload-container .upload-icon {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #9ca3af;
+    }
+    .logo-upload-container .upload-text {
+        font-size: 11px;
+        color: #6b7280;
+        text-align: center;
+        padding: 0 10px;
+        line-height: 1.4;
+    }
+    .logo-preview {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #fff;
+        display: none;
+    }
+    .logo-preview.show {
+        display: block;
+    }
+    .logo-remove {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .logo-upload-container:hover .logo-remove {
+        display: flex;
+    }
+    .form-fields-side {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+    }
+    .fg-no-margin {
+        margin-bottom: 0 !important;
+    }
+    .hint-text {
+        font-size: 10px;
+        color: #9ca3af;
+    }
+
     /* (메모 기능 제거됨) */
 </style>
 
 <div class="topbar">
     <div class="ptitle">
         <span id="topbar-title">페이지 제목</span>
-        <span class="pbadge" id="topbar-badge" style="display: none"
-            >BADGE</span
-        >
+        <span class="pbadge hidden" id="topbar-badge">BADGE</span>
     </div>
     <div class="tright">
-        <div class="search-box" id="topbar-search" style="display: none">
+        <div class="search-box hidden" id="topbar-search">
             <span>🔍</span><input placeholder="검색어를 입력하세요..." />
         </div>
         <div id="topbar-actions"></div>
@@ -159,72 +289,64 @@
 
 <div class="modal-overlay" id="addJobModal" onclick="closeJobModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <div
-            style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 22px;
-            "
-        >
-            <div class="m-title" style="margin-bottom: 0">✚ 새 공고 등록</div>
-            <button
-                class="btn btn-outline"
-                style="
-                    font-size: 11.5px;
-                    padding: 5px 11px;
-                    color: #9ca3af;
-                    border-color: #e8eaf0;
-                "
-                onclick="resetJobForm()"
-            >
+        <div class="modal-header">
+            <div class="m-title m-0">✚ 새 공고 등록</div>
+            <button class="btn btn-outline btn-reset" onclick="resetJobForm()">
                 초기화
             </button>
         </div>
         <div class="crawl-bar">
             <span style="color: #4f46e5">🔗</span>
             <input
-                style="
-                    flex: 1;
-                    background: none;
-                    border: none;
-                    outline: none;
-                    font-size: 12.5px;
-                "
+                class="crawl-input"
                 placeholder="URL을 붙여넣으면 자동으로 채워드려요!"
             />
-            <button
-                class="btn btn-primary"
-                style="padding: 6px 13px; font-size: 12px"
+            <button class="btn btn-primary btn-parse">파싱</button>
+        </div>
+        <div class="form-layout-grid">
+            <div
+                class="logo-upload-container"
+                id="logoDropZone"
+                title="회사 로고 업로드 (이미지 파일만 가능)"
             >
-                파싱
-            </button>
-        </div>
-        <div class="fg">
-            <label class="fl">공고 제목</label>
-            <input
-                class="fi"
-                id="jobTitleInput"
-                placeholder="예: 프론트엔드 개발자"
-            />
-        </div>
-
-        <div class="frow2">
-            <div class="fg">
-                <label class="fl">회사명</label>
-                <input
-                    class="fi"
-                    id="jobCompanyInput"
-                    placeholder="예: 네이버"
-                />
+                <input type="file" id="logoFileInput" hidden accept="image/*" />
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">
+                    회사 로고 업로드<br /><span class="hint-text"
+                        >드로그 앤 드롭 또는 클릭</span
+                    >
+                </div>
+                <img class="logo-preview" id="logoPreview" />
+                <div class="logo-remove" id="logoRemoveBtn" title="삭제">✕</div>
             </div>
-            <div class="fg">
-                <label class="fl">회사위치</label>
-                <input
-                    class="fi"
-                    id="jobLocationInput"
-                    placeholder="예: 서울 강남구 / 판교 / 재택"
-                />
+            <div class="form-fields-side">
+                <div class="fg fg-no-margin">
+                    <label class="fl">공고 제목</label>
+                    <input
+                        class="fi"
+                        id="jobTitleInput"
+                        placeholder="예: 프론트엔드 개발자"
+                    />
+                </div>
+
+                <div class="frow2">
+                    <div class="fg fg-no-margin">
+                        <label class="fl">회사명</label>
+                        <input
+                            class="fi"
+                            id="jobCompanyInput"
+                            placeholder="예: 네이버"
+                        />
+                    </div>
+                    <div class="fg fg-no-margin">
+                        <label class="fl">회사위치</label>
+                        <input
+                            class="fi"
+                            id="jobLocationInput"
+                            placeholder="예: 서울 강남구 / 판교 / 재택"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -239,34 +361,13 @@
                 />
             </div>
             <div class="fg">
-                <div
-                    style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 6px;
-                    "
-                >
-                    <label class="fl" style="margin-bottom: 0">마감일</label>
-                    <label
-                        style="
-                            font-size: 11.5px;
-                            color: #6b7280;
-                            display: flex;
-                            align-items: center;
-                            gap: 5px;
-                            cursor: pointer;
-                            font-weight: 600;
-                        "
-                    >
+                <div class="deadline-header">
+                    <label class="fl m-0">마감일</label>
+                    <label class="always-label">
                         <input
                             type="checkbox"
                             id="alwaysRecruitCheckbox"
-                            style="
-                                width: 13px;
-                                height: 13px;
-                                accent-color: #4f46e5;
-                            "
+                            class="accent-checkbox"
                         />
                         상시 모집
                     </label>
