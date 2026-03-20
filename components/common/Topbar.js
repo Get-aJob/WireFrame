@@ -51,7 +51,11 @@ async function loadTopbar(config) {
 }
 
 function openJobModal() {
-  // 필드 초기화
+  resetJobForm();
+  document.getElementById('addJobModal').classList.add('show');
+}
+
+function resetJobForm() {
   const alwaysRecruitCheckbox = document.getElementById('alwaysRecruitCheckbox');
   const jobDeadlineInput = document.getElementById('jobDeadlineInput');
   const jobCompanyInput = document.getElementById('jobCompanyInput');
@@ -60,6 +64,7 @@ function openJobModal() {
   const jobExperienceInput = document.getElementById('jobExperienceInput');
   const jobLocationInput = document.getElementById('jobLocationInput');
   const jobMemoInput = document.getElementById('jobMemoInput');
+  const crawlUrlInput = document.querySelector('.crawl-bar input');
 
   if (alwaysRecruitCheckbox) alwaysRecruitCheckbox.checked = false;
   if (jobDeadlineInput) {
@@ -74,8 +79,7 @@ function openJobModal() {
   if (jobExperienceInput) jobExperienceInput.value = '';
   if (jobLocationInput) jobLocationInput.value = '';
   if (jobMemoInput) jobMemoInput.value = '';
-
-  document.getElementById('addJobModal').classList.add('show');
+  if (crawlUrlInput) crawlUrlInput.value = '';
 }
 function closeJobModal(e) {
   if (!e || e.target.id === 'addJobModal') {

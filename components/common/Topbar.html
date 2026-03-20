@@ -159,7 +159,28 @@
 
 <div class="modal-overlay" id="addJobModal" onclick="closeJobModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="m-title">✚ 새 공고 등록</div>
+        <div
+            style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 22px;
+            "
+        >
+            <div class="m-title" style="margin-bottom: 0">✚ 새 공고 등록</div>
+            <button
+                class="btn btn-outline"
+                style="
+                    font-size: 11.5px;
+                    padding: 5px 11px;
+                    color: #9ca3af;
+                    border-color: #e8eaf0;
+                "
+                onclick="resetJobForm()"
+            >
+                초기화
+            </button>
+        </div>
         <div class="crawl-bar">
             <span style="color: #4f46e5">🔗</span>
             <input
@@ -266,7 +287,7 @@
 
         <div class="fg">
             <label class="fl"
-                >상세 메모 (주요업무/ 자격요건 / 우대사항 등)</label
+                >상세 메모 (주요업무 / 자격요건 / 우대사항 등)</label
             >
             <textarea
                 class="fi fi-memo"
