@@ -1,518 +1,730 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job-Moa - 전체 공고</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #f4f5f8;
-        --white: #ffffff;
-        --surface2: #f8f9fc;
-        --border: #e8eaf0;
-        --border2: #d4d7e3;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Job-Moa - 전체 공고</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                corePlugins: {
+                    preflight: false,
+                },
+            };
+        </script>
+        <style>
+            :root {
+                --bg: #f4f5f8;
+                --white: #ffffff;
+                --surface2: #f8f9fc;
+                --border: #e8eaf0;
+                --border2: #d4d7e3;
 
-        --indigo: #4f46e5;
-        --indigo-light: #eef2ff;
-        --indigo-mid: #c7d2fe;
-        --indigo-dark: #3730a3;
-        --emerald: #10b981;
-        --emerald-light: #ecfdf5;
-        --amber: #f59e0b;
-        --amber-light: #fffbeb;
-        --rose: #f43f5e;
-        --rose-light: #fff1f2;
-        --violet: #8b5cf6;
-        --violet-light: #f5f3ff;
-        --sky: #0ea5e9;
-        --sky-light: #f0f9ff;
+                --indigo: #4f46e5;
+                --indigo-light: #eef2ff;
+                --indigo-mid: #c7d2fe;
+                --indigo-dark: #3730a3;
+                --emerald: #10b981;
+                --emerald-light: #ecfdf5;
+                --amber: #f59e0b;
+                --amber-light: #fffbeb;
+                --rose: #f43f5e;
+                --rose-light: #fff1f2;
+                --violet: #8b5cf6;
+                --violet-light: #f5f3ff;
+                --sky: #0ea5e9;
+                --sky-light: #f0f9ff;
 
-        --text: #111827;
-        --text2: #6b7280;
-        --text3: #9ca3af;
-        --text4: #d1d5db;
+                --text: #111827;
+                --text2: #6b7280;
+                --text3: #9ca3af;
+                --text4: #d1d5db;
 
-        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-        --shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
-        --shadow-indigo: 0 4px 14px rgba(79, 70, 229, 0.25);
+                --shadow-sm:
+                    0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+                --shadow:
+                    0 4px 12px rgba(0, 0, 0, 0.06),
+                    0 2px 4px rgba(0, 0, 0, 0.04);
+                --shadow-lg:
+                    0 10px 30px rgba(0, 0, 0, 0.1),
+                    0 4px 8px rgba(0, 0, 0, 0.05);
+                --shadow-indigo: 0 4px 14px rgba(79, 70, 229, 0.25);
 
-        --sidebar-w: 230px;
-        --topbar-h: 62px;
-        --radius: 12px;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: 'Noto Sans KR', sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-      }
-      ::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--border2);
-        border-radius: 99px;
-      }
+                --sidebar-w: 230px;
+                --topbar-h: 62px;
+                --radius: 12px;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: "Noto Sans KR", sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+            }
+            ::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--border2);
+                border-radius: 99px;
+            }
 
-      /* ══════ MAIN ══════ */
-      .main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
+            /* ══════ MAIN ══════ */
+            .main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
 
-      /* 공통 탑바가 들어갈 자리 */
-      #topbar-root {
-        height: var(--topbar-h);
-        flex-shrink: 0;
-      }
+            /* 공통 탑바가 들어갈 자리 */
+            #topbar-root {
+                height: var(--topbar-h);
+                flex-shrink: 0;
+            }
 
-      .content {
-        flex: 1;
-        overflow-y: auto;
-        padding: 24px;
-      }
+            .content {
+                flex: 1;
+                overflow-y: auto;
+                padding: 24px;
+            }
 
-      /* ══════ TAGS ══════ */
-      .tag {
-        font-size: 10.5px;
-        font-weight: 600;
-        padding: 3px 8px;
-        border-radius: 5px;
-      }
-      .tg {
-        background: #f3f4f6;
-        color: #6b7280;
-      }
-      .tb {
-        background: var(--indigo-light);
-        color: var(--indigo);
-      }
-      .tyellow {
-        background: var(--amber-light);
-        color: #d97706;
-      }
-      .tviolet {
-        background: var(--violet-light);
-        color: var(--violet);
-      }
-      .dday {
-        font-family: 'DM Mono', monospace;
-        font-size: 11px;
-        font-weight: 700;
-      }
-      .dd-r {
-        color: var(--rose);
-      }
-      .dd-y {
-        color: var(--amber);
-      }
-      .dd-g {
-        color: var(--emerald);
-      }
+            /* ══════ TAGS ══════ */
+            .tag {
+                font-size: 10.5px;
+                font-weight: 600;
+                padding: 3px 8px;
+                border-radius: 5px;
+            }
+            .tg {
+                background: #f3f4f6;
+                color: #6b7280;
+            }
+            .tb {
+                background: var(--indigo-light);
+                color: var(--indigo);
+            }
+            .tyellow {
+                background: var(--amber-light);
+                color: #d97706;
+            }
+            .tviolet {
+                background: var(--violet-light);
+                color: var(--violet);
+            }
+            .dday {
+                font-family: "DM Mono", monospace;
+                font-size: 11px;
+                font-weight: 700;
+            }
+            .dd-r {
+                color: var(--rose);
+            }
+            .dd-y {
+                color: var(--amber);
+            }
+            .dd-g {
+                color: var(--emerald);
+            }
 
-      /* ══════ BUTTON 스타일 (통일) ══════ */
-      .btn {
-        padding: 8px 16px;
-        border-radius: 9px;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        border: none;
-        font-family: 'Noto Sans KR', sans-serif;
-        transition: all 0.15s;
-      }
-      .btn-primary {
-        background: var(--indigo);
-        color: #fff;
-      }
-      .btn-primary:hover {
-        opacity: 0.9;
-      }
-      .btn-outline {
-        background: #fff;
-        color: var(--text2);
-        border: 1.5px solid var(--border);
-      }
-      .btn-sm {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
+            /* ══════ BUTTON 스타일 (통일) ══════ */
+            .btn {
+                padding: 8px 16px;
+                border-radius: 9px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                border: none;
+                font-family: "Noto Sans KR", sans-serif;
+                transition: all 0.15s;
+            }
+            .btn-primary {
+                background: var(--indigo);
+                color: #fff;
+            }
+            .btn-primary:hover {
+                opacity: 0.9;
+            }
+            .btn-outline {
+                background: #fff;
+                color: var(--text2);
+                border: 1.5px solid var(--border);
+            }
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
 
-      /* ══════ JOB BOARD UI ══════ */
-      .api-bar {
-        background: linear-gradient(135deg, var(--indigo-light), var(--violet-light));
-        border: 1.5px solid var(--indigo-mid);
-        border-radius: var(--radius);
-        padding: 14px 18px;
-        margin-bottom: 18px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .api-status {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--indigo);
-      }
-      .api-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--emerald);
-        flex-shrink: 0;
-        animation: pulse 2s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.4;
-        }
-      }
-      .api-sources {
-        display: flex;
-        gap: 8px;
-        margin-left: auto;
-        flex-wrap: wrap;
-      }
-      .api-chip {
-        font-size: 11.5px;
-        font-weight: 700;
-        padding: 4px 12px;
-        border-radius: 99px;
-        background: var(--white);
-        border: 1.5px solid var(--indigo-mid);
-        color: var(--indigo);
-        cursor: pointer;
-        transition: all 0.15s;
-      }
-      .api-chip.on {
-        background: var(--indigo);
-        color: #fff;
-      }
+            /* ══════ JOB BOARD UI ══════ */
+            .api-bar {
+                background: linear-gradient(
+                    135deg,
+                    var(--indigo-light),
+                    var(--violet-light)
+                );
+                border: 1.5px solid var(--indigo-mid);
+                border-radius: var(--radius);
+                padding: 14px 18px;
+                margin-bottom: 18px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            .api-status {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--indigo);
+            }
+            .api-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--emerald);
+                flex-shrink: 0;
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.4;
+                }
+            }
+            .api-sources {
+                display: flex;
+                gap: 8px;
+                margin-left: auto;
+                flex-wrap: wrap;
+            }
+            .api-chip {
+                font-size: 11.5px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 99px;
+                background: var(--white);
+                border: 1.5px solid var(--indigo-mid);
+                color: var(--indigo);
+                cursor: pointer;
+                transition: all 0.15s;
+            }
+            .api-chip.on {
+                background: var(--indigo);
+                color: #fff;
+            }
 
-      .jboard-top {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 18px;
-        align-items: center;
-      }
-      .filter-row {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        flex: 1;
-      }
-      .filter-chip {
-        padding: 6px 14px;
-        border-radius: 99px;
-        font-size: 12.5px;
-        font-weight: 600;
-        cursor: pointer;
-        border: 1.5px solid var(--border);
-        background: var(--white);
-        color: var(--text2);
-        transition: all 0.15s;
-      }
-      .filter-chip.on {
-        background: var(--indigo);
-        color: #fff;
-        border-color: var(--indigo);
-      }
+            .jboard-top {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 18px;
+                align-items: center;
+            }
+            .filter-row {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                flex: 1;
+            }
+            .filter-chip {
+                padding: 6px 14px;
+                border-radius: 99px;
+                font-size: 12.5px;
+                font-weight: 600;
+                cursor: pointer;
+                border: 1.5px solid var(--border);
+                background: var(--white);
+                color: var(--text2);
+                transition: all 0.15s;
+            }
+            .filter-chip.on {
+                background: var(--indigo);
+                color: #fff;
+                border-color: var(--indigo);
+            }
 
-      .jgrid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-      }
-      .jcard {
-        background: var(--white);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px;
-        transition: all 0.15s;
-        box-shadow: var(--shadow-sm);
-      }
-      .jcard:hover {
-        border-color: var(--indigo);
-        box-shadow: var(--shadow);
-        transform: translateY(-2px);
-      }
-      .jcard.scraped {
-        border-color: var(--indigo);
-        box-shadow: 0 0 0 2px var(--indigo-light);
-      }
+            .jgrid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+            }
+            .jcard {
+                background: var(--white);
+                border: 1.5px solid var(--border);
+                border-radius: var(--radius);
+                padding: 16px;
+                transition: all 0.15s;
+                box-shadow: var(--shadow-sm);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .jcard:hover {
+                border-color: var(--indigo);
+                box-shadow: var(--shadow);
+                transform: translateY(-2px);
+            }
+            .jcard.scraped {
+                border-color: var(--indigo);
+                box-shadow: 0 0 0 2px var(--indigo-light);
+            }
 
-      .jtop {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 12px;
-      }
-      .jlogo {
-        width: 42px;
-        height: 42px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
-        font-weight: 900;
-        color: #fff;
-        flex-shrink: 0;
-      }
-      .jco {
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--text);
-      }
-      .jrole {
-        font-size: 13px;
-        color: var(--text2);
-        margin-top: 2px;
-        line-height: 1.4;
-      }
-      .jsource {
-        font-size: 10.5px;
-        color: var(--text3);
-        margin-top: 3px;
-      }
+            .jtop {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+            .jlogo {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                font-weight: 900;
+                color: #fff;
+                flex-shrink: 0;
+            }
+            .jco {
+                font-size: 14px;
+                font-weight: 800;
+                color: var(--text);
+            }
+            .jrole {
+                font-size: 12.5px;
+                color: var(--text2);
+                margin-top: 2px;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .jsource {
+                font-size: 10px;
+                color: var(--text3);
+                margin-top: 3px;
+            }
 
-      .jbottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 12px;
-        border-top: 1px solid var(--border);
-      }
-      .jactions {
-        display: flex;
-        gap: 6px;
-      }
-      .scrap-btn {
-        padding: 5px 11px;
-        border-radius: 7px;
-        font-size: 11.5px;
-        font-weight: 700;
-        cursor: pointer;
-        border: 1.5px solid var(--border);
-        background: var(--white);
-        color: var(--text2);
-        transition: all 0.15s;
-      }
-      .scrap-btn.on {
-        background: var(--amber-light);
-        border-color: var(--amber);
-        color: var(--amber);
-      }
-      .apply-btn {
-        padding: 5px 11px;
-        border-radius: 7px;
-        font-size: 11.5px;
-        font-weight: 700;
-        cursor: pointer;
-        border: none;
-        background: var(--indigo);
-        color: #fff;
-        transition: all 0.15s;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="sidebar-root"></div>
+            .jbottom {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: 12px;
+                border-top: 1px solid var(--border);
+            }
+            .jactions {
+                display: flex;
+                gap: 6px;
+            }
+            .scrap-btn {
+                padding: 5px 9px;
+                border-radius: 7px;
+                font-size: 11px;
+                font-weight: 700;
+                cursor: pointer;
+                border: 1.5px solid var(--border);
+                background: var(--white);
+                color: var(--text2);
+                transition: all 0.15s;
+            }
+            .scrap-btn.on {
+                background: var(--amber-light);
+                border-color: var(--amber);
+                color: var(--amber);
+            }
+            .apply-btn {
+                padding: 5px 9px;
+                border-radius: 7px;
+                font-size: 11px;
+                font-weight: 700;
+                cursor: pointer;
+                border: none;
+                background: var(--indigo);
+                color: #fff;
+                transition: all 0.15s;
+            }
 
-    <main class="main">
-      <div id="topbar-root"></div>
+            /* Pagination styles removed in favor of TailwindCSS */
+        </style>
+    </head>
+    <body>
+        <div id="sidebar-root"></div>
 
-      <div class="content">
-        <div class="api-bar">
-          <div class="api-status">
-            <div class="api-dot"></div>
-            API 연동 중 — 실시간 공고 수집
-          </div>
-          <div style="font-size: 12px; color: var(--text2)">
-            최근 업데이트: 방금 전 · 총 <strong>1,240개</strong> 공고
-          </div>
-          <div class="api-sources">
-            <div class="api-chip on">사람인</div>
-            <div class="api-chip on">잡코리아</div>
-            <div class="api-chip on">원티드</div>
-            <div class="api-chip">링크드인</div>
-            <div class="api-chip">점핏</div>
-          </div>
-        </div>
+        <main class="main">
+            <div id="topbar-root"></div>
 
-        <div class="jboard-top">
-          <div class="filter-row">
-            <div class="filter-chip on">전체</div>
-            <div class="filter-chip">프론트엔드</div>
-            <div class="filter-chip">백엔드</div>
-            <div class="filter-chip">풀스택</div>
-            <div class="filter-chip">iOS/Android</div>
-            <div class="filter-chip">데이터</div>
-            <div class="filter-chip">AI/ML</div>
-            <div class="filter-chip">신입</div>
-            <div class="filter-chip">재택가능</div>
-          </div>
-          <button class="btn btn-outline btn-sm">정렬 ▾</button>
-        </div>
+            <div class="content">
+                <div class="api-bar">
+                    <div class="api-status">
+                        <div class="api-dot"></div>
+                        API 연동 중 — 실시간 공고 수집
+                    </div>
+                    <div style="font-size: 12px; color: var(--text2)">
+                        최근 업데이트: 방금 전 · 총
+                        <strong>1,240개</strong> 공고
+                    </div>
+                    <div class="api-sources">
+                        <div class="api-chip on">사람인</div>
+                        <div class="api-chip on">잡코리아</div>
+                        <div class="api-chip on">원티드</div>
+                        <div class="api-chip">링크드인</div>
+                        <div class="api-chip">점핏</div>
+                    </div>
+                </div>
 
-        <div class="jgrid">
-          <div class="jcard scraped">
+                <div class="jboard-top">
+                    <div class="filter-row">
+                        <div class="filter-chip on">전체</div>
+                        <div class="filter-chip">프론트엔드</div>
+                        <div class="filter-chip">백엔드</div>
+                        <div class="filter-chip">풀스택</div>
+                        <div class="filter-chip">iOS/Android</div>
+                        <div class="filter-chip">데이터</div>
+                        <div class="filter-chip">AI/ML</div>
+                        <div class="filter-chip">신입</div>
+                        <div class="filter-chip">재택가능</div>
+                    </div>
+                    <button class="btn btn-outline btn-sm">정렬 ▾</button>
+                </div>
+
+                <div id="job-grid" class="jgrid">
+                    <!-- Jobs will be rendered here by JS -->
+                </div>
+
+                <!-- Pagination -->
+                <div
+                    id="pagination-root"
+                    class="flex justify-center items-center gap-2 mt-8 pb-5"
+                >
+                    <!-- Pagination buttons will be rendered here by JS -->
+                </div>
+            </div>
+        </main>
+
+        <script src="../components/common/Sidebar.js"></script>
+        <script src="../components/common/Topbar.js"></script>
+        <script>
+            loadSidebar("nav-jobboard");
+
+            loadTopbar({
+                title: "전체 공고",
+                badge: "API",
+                showSearch: true,
+                showAddButton: true,
+            });
+
+            // === Job Data Management ===
+            const JOBS_DATA = [
+                {
+                    id: 1,
+                    co: "네이버",
+                    role: "프론트엔드 개발자 (신입)",
+                    source: "📌 원티드 · 서울 · 대기업",
+                    tags: ["신입", "React", "TypeScript"],
+                    dday: "D-3",
+                    ddayColor: "dd-r",
+                    logoG: "linear-gradient(135deg, #00c853, #009624)",
+                    logoL: "N",
+                    scraped: true,
+                },
+                {
+                    id: 2,
+                    co: "카카오",
+                    role: "서버 개발자 (Node.js)",
+                    source: "📌 사람인 · 판교 · 대기업",
+                    tags: ["신입", "Node.js", "MySQL"],
+                    dday: "D-8",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #ff8f00, #e65100)",
+                    logoL: "K",
+                },
+                {
+                    id: 3,
+                    co: "토스",
+                    role: "iOS 개발자 (Swift)",
+                    source: "📌 원티드 · 서울 · 핀테크",
+                    tags: ["경력무관", "Swift", "iOS"],
+                    dday: "D-20",
+                    ddayColor: "dd-g",
+                    logoG: "linear-gradient(135deg, #0288d1, #006064)",
+                    logoL: "T",
+                },
+                {
+                    id: 4,
+                    co: "쿠팡",
+                    role: "백엔드 주니어 개발자",
+                    source: "📌 사람인 · 서울 · 이커머스",
+                    tags: ["신입", "Java", "Spring"],
+                    dday: "오늘마감",
+                    ddayColor: "dd-r",
+                    logoG: "linear-gradient(135deg, #000, #333)",
+                    logoL: "C",
+                },
+                {
+                    id: 5,
+                    co: "우아한형제들",
+                    role: "프론트엔드 (React/Next.js)",
+                    source: "📌 원티드 · 송파 · 유니콘",
+                    tags: ["경력 2-5년", "Next.js", "Tailwind"],
+                    dday: "D-5",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #1e88e5, #1565c0)",
+                    logoL: "W",
+                },
+                {
+                    id: 6,
+                    co: "라인",
+                    role: "웹 서비스 개발자",
+                    source: "📌 잡코리아 · 성남 · 글로벌",
+                    tags: ["신입/경력", "Vue.js", "Kotlin"],
+                    dday: "상시채용",
+                    ddayColor: "dd-g",
+                    logoG: "linear-gradient(135deg, #43a047, #2e7d32)",
+                    logoL: "L",
+                },
+                {
+                    id: 7,
+                    co: "당근",
+                    role: "백엔드 엔지니어 (Python)",
+                    source: "📌 점핏 · 서울 · 유니콘",
+                    tags: ["경력 3년↑", "Python", "Go"],
+                    dday: "D-1",
+                    ddayColor: "dd-r",
+                    logoG: "linear-gradient(135deg, #fb8c00, #ef6c00)",
+                    logoL: "D",
+                },
+                {
+                    id: 8,
+                    co: "무신사",
+                    role: "Android 앱 개발자",
+                    source: "📌 사람인 · 서울 · 패션테크",
+                    tags: ["신입", "Kotlin", "Android"],
+                    dday: "D-12",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #3949ab, #283593)",
+                    logoL: "M",
+                },
+                {
+                    id: 9,
+                    co: "야놀자",
+                    role: "데이터 사이언티스트",
+                    source: "📌 잡코리아 · 서울 · 여행",
+                    tags: ["경력무관", "Python", "SQL"],
+                    dday: "D-15",
+                    ddayColor: "dd-g",
+                    logoG: "linear-gradient(135deg, #e53935, #c62828)",
+                    logoL: "Y",
+                },
+                {
+                    id: 10,
+                    co: "뱅크샐러드",
+                    role: "Platform Engineer",
+                    source: "📌 원티드 · 여의도 · 핀테크",
+                    tags: ["3년↑", "AWS", "Kubernetes"],
+                    dday: "D-7",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #00acc1, #00838f)",
+                    logoL: "B",
+                },
+                {
+                    id: 11,
+                    co: "직방",
+                    role: "Fullstack Developer",
+                    source: "📌 점핏 · 서울 · 프롭테크",
+                    tags: ["신입", "Node.js", "React"],
+                    dday: "마감임박",
+                    ddayColor: "dd-r",
+                    logoG: "linear-gradient(135deg, #7b1fa2, #4a148c)",
+                    logoL: "Z",
+                },
+                {
+                    id: 12,
+                    co: "VIVA Republica",
+                    role: "QA Engineer",
+                    source: "📌 원티드 · 서울 · 핀테크",
+                    tags: ["신입/경력", "Testing", "Automation"],
+                    dday: "D-25",
+                    ddayColor: "dd-g",
+                    logoG: "linear-gradient(135deg, #546e7a, #37474f)",
+                    logoL: "V",
+                },
+                {
+                    id: 13,
+                    co: "현대자동차",
+                    role: "자율주행 소프트웨어 개발",
+                    source: "📌 자체채용 · 서울 · 완성차",
+                    tags: ["경력", "C++", "Python"],
+                    dday: "D-10",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #002c5f, #0052a5)",
+                    logoL: "H",
+                },
+                {
+                    id: 14,
+                    co: "CJ 올리브영",
+                    role: "SRE 엔지니어",
+                    source: "📌 잡코리아 · 서울 · 리테일",
+                    tags: ["경력 3년↑", "Prometheus", "Grafana"],
+                    dday: "D-4",
+                    ddayColor: "dd-y",
+                    logoG: "linear-gradient(135deg, #c0e000, #80b000)",
+                    logoL: "O",
+                },
+                {
+                    id: 15,
+                    co: "몰로코",
+                    role: "Data Engineer",
+                    source: "📌 원티드 · 서울 · 애드테크",
+                    tags: ["경력", "BigQuery", "Spark"],
+                    dday: "상시채용",
+                    ddayColor: "dd-g",
+                    logoG: "linear-gradient(135deg, #000, #111)",
+                    logoL: "M",
+                },
+            ];
+
+            const JOBS_PER_PAGE = 12;
+            let currentPage = 1;
+
+            function renderJobs(page) {
+                const start = (page - 1) * JOBS_PER_PAGE;
+                const end = start + JOBS_PER_PAGE;
+                const pageJobs = JOBS_DATA.slice(start, end);
+
+                const grid = document.getElementById("job-grid");
+                grid.innerHTML = pageJobs
+                    .map(
+                        (job) => `
+          <div class="jcard ${job.scraped ? "scraped" : ""}">
             <div class="jtop">
-              <div class="jlogo" style="background: linear-gradient(135deg, #00c853, #009624)">
-                N
-              </div>
+              <div class="jlogo" style="background: ${job.logoG}">${job.logoL}</div>
               <div>
-                <div class="jco">네이버</div>
-                <div class="jrole">프론트엔드 개발자 (신입)</div>
-                <div class="jsource">📌 원티드 · 서울 · 대기업</div>
+                <div class="jco">${job.co}</div>
+                <div class="jrole">${job.role}</div>
+                <div class="jsource">${job.source}</div>
               </div>
             </div>
             <div class="ctags" style="margin-bottom: 10px">
-              <span class="tag tb">신입</span><span class="tag tg">React</span
-              ><span class="tag tg">TypeScript</span>
+              ${job.tags.map((t) => `<span class="tag ${t === "신입" ? "tb" : "tg"}">${t}</span>`).join("")}
             </div>
             <div class="jbottom">
-              <span class="jdday dd-r">D-3</span>
+              <span class="jdday ${job.ddayColor}">${job.dday}</span>
               <div class="jactions">
-                <button class="scrap-btn on" onclick="toggleScrap(this)">★ 스크랩</button>
+                <button class="scrap-btn ${job.scraped ? "on" : ""}" onclick="toggleScrap(this, ${job.id})">
+                  ${job.scraped ? "★ 스크랩" : "☆ 스크랩"}
+                </button>
                 <button class="apply-btn" onclick="openJobModal()">지원하기</button>
               </div>
             </div>
           </div>
+        `,
+                    )
+                    .join("");
 
-          <div class="jcard">
-            <div class="jtop">
-              <div class="jlogo" style="background: linear-gradient(135deg, #ff8f00, #e65100)">
-                K
-              </div>
-              <div>
-                <div class="jco">카카오</div>
-                <div class="jrole">서버 개발자 (Node.js)</div>
-                <div class="jsource">📌 사람인 · 판교 · 대기업</div>
-              </div>
-            </div>
-            <div class="ctags" style="margin-bottom: 10px">
-              <span class="tag tb">신입</span><span class="tag tg">Node.js</span
-              ><span class="tag tg">MySQL</span>
-            </div>
-            <div class="jbottom">
-              <span class="jdday dd-y">D-8</span>
-              <div class="jactions">
-                <button class="scrap-btn" onclick="toggleScrap(this)">☆ 스크랩</button>
-                <button class="apply-btn" onclick="openJobModal()">지원하기</button>
-              </div>
-            </div>
-          </div>
+                renderPagination(page);
+                grid.scrollTo({ top: 0, behavior: "smooth" });
+            }
 
-          <div class="jcard">
-            <div class="jtop">
-              <div class="jlogo" style="background: linear-gradient(135deg, #0288d1, #006064)">
-                T
-              </div>
-              <div>
-                <div class="jco">토스</div>
-                <div class="jrole">iOS 개발자 (Swift)</div>
-                <div class="jsource">📌 원티드 · 서울 · 핀테크</div>
-              </div>
-            </div>
-            <div class="ctags" style="margin-bottom: 10px">
-              <span class="tag tviolet">경력무관</span><span class="tag tg">Swift</span
-              ><span class="tag tg">iOS</span>
-            </div>
-            <div class="jbottom">
-              <span class="jdday dd-g">D-20</span>
-              <div class="jactions">
-                <button class="scrap-btn" onclick="toggleScrap(this)">☆ 스크랩</button>
-                <button class="apply-btn" onclick="openJobModal()">지원하기</button>
-              </div>
-            </div>
-          </div>
+            function renderPagination(page) {
+                const totalPages = Math.ceil(JOBS_DATA.length / JOBS_PER_PAGE);
+                const root = document.getElementById("pagination-root");
+                let html = "";
 
-          <div class="jcard">
-            <div class="jtop">
-              <div class="jlogo" style="background: linear-gradient(135deg, #000, #333)">C</div>
-              <div>
-                <div class="jco">쿠팡</div>
-                <div class="jrole">백엔드 주니어 개발자</div>
-                <div class="jsource">📌 사람인 · 서울 · 이커머스</div>
-              </div>
-            </div>
-            <div class="ctags" style="margin-bottom: 10px">
-              <span class="tag tb">신입</span><span class="tag tg">Java</span
-              ><span class="tag tg">Spring</span>
-            </div>
-            <div class="jbottom">
-              <span class="jdday dd-r">오늘마감</span>
-              <div class="jactions">
-                <button class="scrap-btn" onclick="toggleScrap(this)">☆ 스크랩</button>
-                <button class="apply-btn" onclick="openJobModal()">지원하기</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+                // Prev Arrow
+                html += `
+          <button onclick="goToPage(${page - 1})" 
+            class="w-9 h-9 flex items-center justify-center rounded-lg border border-solid border-[#e8eaf0] bg-white text-[#9ca3af] font-semibold text-[13px] transition-all hover:border-[#c7d2fe] hover:text-[#4f46e5] cursor-pointer ${page === 1 ? "opacity-50 pointer-events-none" : ""}">
+            ❮
+          </button>
+        `;
 
-    <script src="../components/common/Sidebar.js"></script>
-    <script src="../components/common/Topbar.js"></script>
-    <script>
-      loadSidebar('nav-jobboard');
+                // Page Numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    html += `
+            <button onclick="goToPage(${i})"
+              class="w-9 h-9 flex items-center justify-center rounded-lg font-semibold text-[13px] transition-all border border-solid cursor-pointer ${
+                  i === page
+                      ? "bg-[#4f46e5] text-white border-[#4f46e5]"
+                      : "bg-white text-[#6b7280] border-[#e8eaf0] hover:border-[#c7d2fe] hover:text-[#4f46e5]"
+              }">
+              ${i}
+            </button>
+          `;
+                }
 
-      loadTopbar({
-        title: '전체 공고',
-        badge: 'API',
-        showSearch: true,
-        showAddButton: true,
-      });
+                // Next Arrow
+                html += `
+          <button onclick="goToPage(${page + 1})"
+            class="w-9 h-9 flex items-center justify-center rounded-lg border border-solid border-[#e8eaf0] bg-white text-[#9ca3af] font-semibold text-[13px] transition-all hover:border-[#c7d2fe] hover:text-[#4f46e5] cursor-pointer ${page === totalPages ? "opacity-50 pointer-events-none" : ""}">
+            ❯
+          </button>
+        `;
 
-      function toggleScrap(btn) {
-        btn.classList.toggle('on');
-        btn.textContent = btn.classList.contains('on') ? '★ 스크랩' : '☆ 스크랩';
-        const card = btn.closest('.jcard');
-        if (btn.classList.contains('on')) {
-          card.classList.add('scraped');
-        } else {
-          card.classList.remove('scraped');
-        }
-      }
+                root.innerHTML = html;
+            }
 
-      document.querySelectorAll('.filter-chip').forEach((chip) => {
-        chip.addEventListener('click', () => {
-          document.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('on'));
-          chip.classList.add('on');
-        });
-      });
+            function goToPage(page) {
+                const totalPages = Math.ceil(JOBS_DATA.length / JOBS_PER_PAGE);
+                if (page < 1 || page > totalPages) return;
+                currentPage = page;
+                renderJobs(page);
+            }
 
-      document.querySelectorAll('.api-chip').forEach((chip) => {
-        chip.addEventListener('click', () => {
-          chip.classList.toggle('on');
-        });
-      });
-    </script>
-  </body>
+            // Initial Render
+            renderJobs(1);
+
+            function toggleScrap(btn, jobId) {
+                btn.classList.toggle("on");
+                btn.textContent = btn.classList.contains("on")
+                    ? "★ 스크랩"
+                    : "☆ 스크랩";
+                const card = btn.closest(".jcard");
+                const job = JOBS_DATA.find((j) => j.id === jobId);
+
+                if (btn.classList.contains("on")) {
+                    card.classList.add("scraped");
+                    if (job) job.scraped = true;
+                } else {
+                    card.classList.remove("scraped");
+                    if (job) job.scraped = false;
+                }
+            }
+
+            document.querySelectorAll(".filter-chip").forEach((chip) => {
+                chip.addEventListener("click", () => {
+                    document
+                        .querySelectorAll(".filter-chip")
+                        .forEach((c) => c.classList.remove("on"));
+                    chip.classList.add("on");
+                    // (In actual implementation, you would filter the JOBS_DATA and re-render)
+                });
+            });
+
+            document.querySelectorAll(".api-chip").forEach((chip) => {
+                chip.addEventListener("click", () => {
+                    chip.classList.toggle("on");
+                });
+            });
+        </script>
+    </body>
 </html>
