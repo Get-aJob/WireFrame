@@ -546,11 +546,13 @@
                 ];
 
                 const co = companies[i % companies.length];
+                const site = sources[i % sources.length];
                 return {
                     id: i + 1,
                     co: co.name,
                     role: `${roles[i % roles.length]}`,
-                    source: `📌 ${sources[i % sources.length]} · 서울 · 대기업`,
+                    site: site,
+                    source: `📌 ${site} · 서울 · 대기업`,
                     tags: [
                         "신입",
                         skills[i % skills.length],
@@ -597,21 +599,28 @@
 
             <!-- Bottom Section -->
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; padding-top: 12px;">
-              <!-- Bottom Left: Tag (신입/경력) + Location -->
-              <div class="ctags" style="display: flex; align-items: center; gap: 6px;">
-                ${job.tags
-                    .filter((t) => t === "신입" || t === "경력")
-                    .map(
-                        (t) =>
-                            `<span class="tag ${t === "신입" ? "tb" : "tg"}">${t}</span>`,
-                    )
-                    .join("")}
-                <span
-                    class="tag"
-                    style="background: var(--violet-light); color: var(--violet); font-size: 10px;"
-                >
-                    ${job.location}
-                </span>
+              <!-- Bottom Left: Tag (신입/경력) + Location & Source -->
+              <div class="ctags" style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  ${job.tags
+                      .filter((t) => t === "신입" || t === "경력")
+                      .map(
+                          (t) =>
+                              `<span class="tag ${t === "신입" ? "tb" : "tg"}">${t}</span>`,
+                      )
+                      .join("")}
+                  <span
+                      class="tag"
+                      style="background: var(--violet-light); color: var(--violet); font-size: 10px;"
+                  >
+                      ${job.location}
+                  </span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="tag" style="background: var(--sky-light); color: var(--sky); font-size: 10px;">
+                        ${job.site}
+                    </span>
+                </div>
               </div>
               
               <!-- Bottom Right: Scrap & Apply Buttons -->
