@@ -126,7 +126,7 @@
                 background: var(--violet-light);
                 color: var(--violet);
             }
-            .dday {
+            .jdday {
                 font-family: "DM Mono", monospace;
                 font-size: 11px;
                 font-weight: 700;
@@ -262,8 +262,14 @@
 
             /* UX: Fade In Animation */
             @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
             .fade-in {
                 animation: fadeIn 0.4s ease-out forwards;
@@ -272,18 +278,20 @@
             .jgrid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 14px;
+                gap: 16px;
             }
             .jcard {
                 background: var(--white);
                 border: 1.5px solid var(--border);
                 border-radius: var(--radius);
-                padding: 16px;
+                padding: 20px 18px; /*카드 크기 조정*/
                 transition: all 0.15s;
                 box-shadow: var(--shadow-sm);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                position: relative;
+                min-height: 160px;
             }
             .jcard:hover {
                 border-color: var(--indigo);
@@ -446,30 +454,96 @@
             // Generate 200 sample jobs (40 per page * 5 pages)
             const JOBS_DATA = Array.from({ length: 200 }, (_, i) => {
                 const companies = [
-                    { name: '네이버', logo: 'N', color: 'linear-gradient(135deg, #00c853, #009624)' },
-                    { name: '카카오', logo: 'K', color: 'linear-gradient(135deg, #ff8f00, #e65100)' },
-                    { name: '토스', logo: 'T', color: 'linear-gradient(135deg, #0288d1, #006064)' },
-                    { name: '쿠팡', logo: 'C', color: 'linear-gradient(135deg, #000, #333)' },
-                    { name: '우아한형제들', logo: 'W', color: 'linear-gradient(135deg, #1e88e5, #1565c0)' },
-                    { name: '라인', logo: 'L', color: 'linear-gradient(135deg, #43a047, #2e7d32)' },
-                    { name: '당근', logo: 'D', color: 'linear-gradient(135deg, #fb8c00, #ef6c00)' },
-                    { name: '무신사', logo: 'M', color: 'linear-gradient(135deg, #3949ab, #283593)' },
+                    {
+                        name: "네이버",
+                        logo: "N",
+                        color: "linear-gradient(135deg, #00c853, #009624)",
+                    },
+                    {
+                        name: "카카오",
+                        logo: "K",
+                        color: "linear-gradient(135deg, #ff8f00, #e65100)",
+                    },
+                    {
+                        name: "토스",
+                        logo: "T",
+                        color: "linear-gradient(135deg, #0288d1, #006064)",
+                    },
+                    {
+                        name: "쿠팡",
+                        logo: "C",
+                        color: "linear-gradient(135deg, #000, #333)",
+                    },
+                    {
+                        name: "우아한형제들",
+                        logo: "W",
+                        color: "linear-gradient(135deg, #1e88e5, #1565c0)",
+                    },
+                    {
+                        name: "라인",
+                        logo: "L",
+                        color: "linear-gradient(135deg, #43a047, #2e7d32)",
+                    },
+                    {
+                        name: "당근",
+                        logo: "D",
+                        color: "linear-gradient(135deg, #fb8c00, #ef6c00)",
+                    },
+                    {
+                        name: "무신사",
+                        logo: "M",
+                        color: "linear-gradient(135deg, #3949ab, #283593)",
+                    },
                 ];
                 const roles = [
-                    '프론트엔드 개발자',
-                    '서버 개발자 (Node.js)',
-                    'iOS 개발자 (Swift)',
-                    '백엔드 주니어 개발자',
-                    '데이터 사이언티스트',
-                    'QA Engineer',
-                    'SRE 엔지니어',
-                    'Fullstack Developer',
-                    '시스템 아키텍트'
+                    "프론트엔드 개발자",
+                    "서버 개발자 (Node.js)",
+                    "iOS 개발자 (Swift)",
+                    "백엔드 주니어 개발자",
+                    "데이터 사이언티스트",
+                    "QA Engineer",
+                    "SRE 엔지니어",
+                    "Fullstack Developer",
+                    "시스템 아키텍트",
                 ];
-                const ddays = ['D-3', 'D-8', 'D-20', '오늘마감', '상시채용', 'D-1', 'D-12', '마감임박'];
-                const colors = ['dd-r', 'dd-y', 'dd-g', 'dd-r', 'dd-g', 'dd-r', 'dd-y', 'dd-r'];
-                const sources = ['원티드', '사람인', '잡코리아', '점핏', '링크드인'];
-                const skills = ['React', 'TypeScript', 'Node.js', 'Spring', 'Kotlin', 'Swift', 'Python', 'AWS', 'Next.js'];
+                const ddays = [
+                    "D-3",
+                    "D-8",
+                    "D-20",
+                    "오늘마감",
+                    "상시채용",
+                    "D-1",
+                    "D-12",
+                    "마감임박",
+                ];
+                const colors = [
+                    "dd-r",
+                    "dd-y",
+                    "dd-g",
+                    "dd-r",
+                    "dd-g",
+                    "dd-r",
+                    "dd-y",
+                    "dd-r",
+                ];
+                const sources = [
+                    "원티드",
+                    "사람인",
+                    "잡코리아",
+                    "점핏",
+                    "링크드인",
+                ];
+                const skills = [
+                    "React",
+                    "TypeScript",
+                    "Node.js",
+                    "Spring",
+                    "Kotlin",
+                    "Swift",
+                    "Python",
+                    "AWS",
+                    "Next.js",
+                ];
 
                 const co = companies[i % companies.length];
                 return {
@@ -477,11 +551,17 @@
                     co: co.name,
                     role: `${roles[i % roles.length]}`,
                     source: `📌 ${sources[i % sources.length]} · 서울 · 대기업`,
-                    tags: ['신입', skills[i % skills.length], skills[(i + 1) % skills.length]],
+                    tags: [
+                        "신입",
+                        skills[i % skills.length],
+                        skills[(i + 1) % skills.length],
+                    ],
                     dday: ddays[i % ddays.length],
                     ddayColor: colors[i % ddays.length],
                     logoG: co.color,
                     logoL: co.logo,
+                    desc: "프론트엔드 핵심 역량을 바탕으로 사용자 중심의 가치과 탁월한 사용자 경험을 실현할 인재를 찾습니다. 주요 업무로는...",
+                    location: "서울",
                     scraped: i % 7 === 0,
                 };
             });
@@ -499,24 +579,50 @@
                     .map(
                         (job) => `
           <div class="jcard fade-in ${job.scraped ? "scraped" : ""}">
-            <div class="jtop">
+            <!-- Top Right: D-day -->
+            <div style="position: absolute; top: 16px; right: 16px;">
+              <span class="jdday ${job.ddayColor}">${job.dday}</span>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <!-- Left: Logo -->
               <div class="jlogo" style="background: ${job.logoG}">${job.logoL}</div>
-              <div>
-                <div class="jco">${job.co}</div>
-                <div class="jrole">${job.role}</div>
-                <div class="jsource">${job.source}</div>
+              
+              <!-- Right of Logo: Role & Company -->
+              <div style="flex: 1; padding-right: 50px;">
+                <div class="jrole" style="font-weight: 700; font-size: 14.5px; color: var(--text); -webkit-line-clamp: 1;">${job.role}</div>
+                <div class="jco" style="font-size: 12.5px; color: var(--text2); margin-top: 2px;">${job.co}</div>
               </div>
             </div>
-            <div class="ctags" style="margin-bottom: 10px">
-              ${job.tags.map((t) => `<span class="tag ${t === "신입" ? "tb" : "tg"}">${t}</span>`).join("")}
-            </div>
-            <div class="jbottom">
-              <span class="jdday ${job.ddayColor}">${job.dday}</span>
+
+            <!-- Bottom Section -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; padding-top: 12px;">
+              <!-- Bottom Left: Tag (신입/경력) + Location -->
+              <div class="ctags" style="display: flex; align-items: center; gap: 6px;">
+                ${job.tags
+                    .filter((t) => t === "신입" || t === "경력")
+                    .map(
+                        (t) =>
+                            `<span class="tag ${t === "신입" ? "tb" : "tg"}">${t}</span>`,
+                    )
+                    .join("")}
+                <span
+                    class="tag"
+                    style="background: var(--violet-light); color: var(--violet); font-size: 10px;"
+                >
+                    ${job.location}
+                </span>
+              </div>
+              
+              <!-- Bottom Right: Scrap & Apply Buttons -->
               <div class="jactions">
-                <button class="scrap-btn ${job.scraped ? "on" : ""}" onclick="toggleScrap(this, ${job.id})">
-                  ${job.scraped ? "★ 스크랩" : "☆ 스크랩"}
+                <button
+                    class="scrap-btn ${job.scraped ? "on" : ""}"
+                    onclick="toggleScrap(this, ${job.id})"
+                >
+                    ${job.scraped ? "★ 스크랩" : "☆ 스크랩"}
                 </button>
-                <button class="apply-btn" onclick="openJobModal()">지원하기</button>
+                <button class="apply-btn">지원하기</button>
               </div>
             </div>
           </div>
@@ -525,7 +631,7 @@
                     .join("");
 
                 renderPagination(page);
-                const content = document.querySelector('.content');
+                const content = document.querySelector(".content");
                 content.scrollTo({ top: 0, behavior: "auto" }); // Instant scroll for better UX
             }
 
